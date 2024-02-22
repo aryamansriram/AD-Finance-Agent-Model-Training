@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#SBATCH -J gpt2-tune
+#SBATCH -p gpu
+#SBATCH --account students
+#SBATCH -o llm.output
+#SBATCH -e llm.err
+#SBATCH -n 2
+#SBATCH --mem=96G
+#SBATCH -t 2-00:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=arsrira@iu.edu
+#SBATCH --gres=gpu:1
+
+module load python/gpu
+
+eval "$(micromamba shell hook --shell bash)"
+micromamba activate rag
+
+python scripts/finetuning_script.py
